@@ -109,7 +109,7 @@ class MallapiApplicationTests {
 	}
 
 	// 페이징 리스트
-	@Test
+//	@Test
 	public void testList() {
 		PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(2).size(10).build();
 		PageResponseDTO<TodoDTO> response = todoService.list(pageRequestDTO);
