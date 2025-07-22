@@ -34,15 +34,21 @@ public class ProductController {
 	private final CustomFileUtil fileUtil;
 
 	@PostMapping("/")
-	public Map<String, String> register(ProductDTO productDTO) {
+	public Map<String, Long> register(ProductDTO productDTO) {
 		log.info("rgister: " + productDTO);
 		List<MultipartFile> files = productDTO.getFiles();
-		// 업로드 된 파일을 UUID_실제 파일.타입으로 변환해서 서버 저장소에 저장 후에
-		// List<String> UUID_실제 파일.타입으로 리턴한다.
 		List<String> uploadFileNames = fileUtil.saveFiles(files);
 		productDTO.setUploadFileNames(uploadFileNames);
 		log.info(uploadFileNames);
-		return Map.of("RESULT", "SUCCESS");
+		// 서비스 호출
+		Long pno = productService.register(productDTO);
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		return Map.of("result", pno);
+
 	}
 
 	@GetMapping("/view/{fileName}")
