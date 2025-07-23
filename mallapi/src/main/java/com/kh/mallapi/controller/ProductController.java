@@ -43,7 +43,7 @@ public class ProductController {
 		// 서비스 호출
 		Long pno = productService.register(productDTO);
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
