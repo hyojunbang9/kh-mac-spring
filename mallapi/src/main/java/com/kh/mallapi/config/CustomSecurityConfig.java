@@ -14,8 +14,10 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import com.kh.mallapi.security.filter.JWTCheckFilter;
 import com.kh.mallapi.security.handler.APILoginFailHandler;
 import com.kh.mallapi.security.handler.APILoginSuccessHandler;
+import com.kh.mallapi.security.handler.CustomAccessDeniedHandler;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -49,9 +51,14 @@ public class CustomSecurityConfig {
 			// 로그인 실패 시 실행될 핸들러 객체를 지정 코드
 			config.failureHandler(new APILoginFailHandler());
 		});
-		// JWT 체크 추가
-//		http.addFilterBefore(new JWTCheckFilter(), UsernamePasswordAuthenticationFilter.class);
+		// JWT 체크 추가(시큐리티 처리 전 필터 진행)
+		http.addFilterBefore(new JWTCheckFilter(), UsernamePasswordAuthenticationFilter.class);
 
+		// 권한이 허가 되지 않았을 때 예외처리 메시지 처리
+		http.exceptionHandling(config -> {
+			config.accessDeniedHandler(new CustomAccessDeniedHandler());
+		});
+		
 		return http.build();
 	}
 
