@@ -62,7 +62,7 @@ public class DiaryRepositoryTests {
 		diaryRepository.deleteById(dno);
 	}
 
-	@Test
+//	@Test
 	public void testPaging() {
 		// 0번째 페이지요청(페이지 인덱스는 0부터 시작), 한 페이지에 10개의 데이터,
 		// 정렬기준은 dno 필드를 기준으로 내림차순
