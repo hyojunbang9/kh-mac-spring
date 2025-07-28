@@ -17,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.kh.mallapi.domain.Member;
 import com.kh.mallapi.domain.MemberRole;
 import com.kh.mallapi.dto.MemberDTO;
+import com.kh.mallapi.dto.MemberModifyDTO;
 import com.kh.mallapi.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -34,21 +35,22 @@ public class MemberServiceImpl implements MemberService {
 	public MemberDTO getKakaoMember(String accessToken) {
 		String email = getEmailFromKakaoAccessToken(accessToken);
 		log.info("email: " + email);
+		// 기존의 회원(카카오로 받은 이메일이 내 멤버 테이블에 있는지 확인)
 		Optional<Member> result = memberRepository.findById(email);
-		// 기존의 회원
 		if (result.isPresent()) {
 			MemberDTO memberDTO = entityToDTO(result.get());
 			return memberDTO;
 		}
 
 		// 회원이 아니었다면 // 닉네임은 '소셜회원'으로
-		// 패스워드는 임의로 생성 된 member이 return됨. 
+		// 패스워드는 임의로 생성 된 member이 return됨.
 		Member socialMember = makeSocialMember(email);
 		memberRepository.save(socialMember);
 		MemberDTO memberDTO = entityToDTO(socialMember);
 		return memberDTO;
 	}
 
+	// 임의 패스워드 생성, 닉네임 : 소셜 회원 등록(사용자에게 패스워드 수정 요청)
 	private Member makeSocialMember(String email) {
 		String tempPassword = makeTempPassword();
 		log.info("tempPassword: " + tempPassword);
@@ -97,4 +99,15 @@ public class MemberServiceImpl implements MemberService {
 		log.info("kakaoAccount: " + kakaoAccount);
 		return kakaoAccount.get("email");
 	}
+
+	@Override
+	public void modifyMember(MemberModifyDTO memberModifyDTO) {
+		Optional<Member> result = memberRepository.findById(memberModifyDTO.getEmail());
+		Member member = result.orElseThrow();
+		member.changePw(passwordEncoder.encode(memberModifyDTO.getPw()));
+		member.changeSocial(false);
+		member.changeNickname(memberModifyDTO.getNickname());
+		memberRepository.save(member);
+	}
+
 }
