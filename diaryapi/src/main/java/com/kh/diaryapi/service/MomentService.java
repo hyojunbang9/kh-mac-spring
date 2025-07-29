@@ -15,4 +15,6 @@ public interface MomentService {
 	MomentDTO get(Long mno);
 
 	public void modify(MomentDTO momentDTO);
+	
+	public void remove(Long mno);
 }

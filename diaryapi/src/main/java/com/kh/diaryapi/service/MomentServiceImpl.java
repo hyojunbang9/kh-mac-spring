@@ -104,4 +104,30 @@ public class MomentServiceImpl implements MomentService {
 		return momentDTO;
 	}
 
+	@Override
+	public void modify(MomentDTO momentDTO) {
+		Optional<Moment> result = momentRepository.findById(momentDTO.getMno());
+		Moment moment = result.orElseThrow();
+
+		moment.changeMtitle(momentDTO.getMtitle());
+		moment.changeMcontent(momentDTO.getMcontent());
+		moment.changeMlocation(momentDTO.getMlocation());
+		moment.changeMdate(momentDTO.getMdate());
+
+		moment.clearList();
+		List<String> uploadFileNames = momentDTO.getUploadFileNames();
+		if (uploadFileNames != null && !uploadFileNames.isEmpty()) {
+			uploadFileNames.forEach(uploadName -> {
+				moment.addImageString(uploadName);
+			});
+		}
+
+		momentRepository.save(moment);
+	}
+
+	@Override
+	public void remove(Long mno) {
+		momentRepository.deleteMomentByMno(mno);
+	}
+
 }

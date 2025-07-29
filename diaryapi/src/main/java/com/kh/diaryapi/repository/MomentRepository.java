@@ -17,4 +17,10 @@ public interface MomentRepository extends JpaRepository<Moment, Long> {
 	@Query("select m from Moment m where m.mno = :mno")
 	Optional<Moment> selectOne(@Param("mno") Long mno);
 
+	@Modifying
+	@Query("delete from Moment m where m.mno = :mno")
+	void deleteMomentByMno(@Param("mno") Long mno);
+
+	@Query("select m, mi from Moment m left join m.imageList mi")
+	Page<Object[]> selectList(Pageable pageable);
 }
