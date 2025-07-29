@@ -1,6 +1,10 @@
 package com.kh.diaryapi;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,18 +24,17 @@ import lombok.extern.log4j.Log4j2;
 public class DiaryRepositoryTests {
 	@Autowired
 	private DiaryRepository diaryRepository;
-
-//	@Test
-	public void test1() {
-		log.info(" ");
-		log.info(diaryRepository);
-	}
+//	@Autowired
+//	private DiaryService diaryService;
 
 //	@Test
 	public void testInsert() {
-		for (int i = 0; i <= 100; i++) {
-			Diary diary = Diary.builder().title("Title..." + i).dueDate(LocalDate.of(2025, 7, 24)).writer("user00")
+		for (int i = 1; i <= 100; i++) {
+			Diary diary = Diary.builder().dtitle("제목..." + i).dcontent("내용입니다..." + i)
+					.dwriter("user" + String.format("%02d", i % 10)) // user00 ~ user09 반복
+					.ddate(LocalDate.of(2025, 7, 24)).dweather(i % 2 == 0 ? "맑음" : "흐림") // 짝수는 맑음, 홀수는 흐림
 					.build();
+
 			diaryRepository.save(diary);
 		}
 	}
@@ -50,9 +53,10 @@ public class DiaryRepositoryTests {
 		Long dno = 33L;
 		java.util.Optional<Diary> result = diaryRepository.findById(dno);
 		Diary diary = result.orElseThrow();
-		diary.changeTitle("Modified 33...");
-		diary.changeComplete(true);
-		diary.changeDueDate(LocalDate.of(2025, 07, 25));
+		diary.changeDtitle("Modified 33...");
+		diary.changeDcontent("Modified content");
+		diary.changeDweather("Modified weather");
+		diary.changeDdate(LocalDate.of(2025, 07, 25));
 		diaryRepository.save(diary);
 	}
 
@@ -74,4 +78,35 @@ public class DiaryRepositoryTests {
 		// 현재 페이지(0페이지)에 포함된 Diary 목록을 가져온다.
 		result.getContent().stream().forEach(diary -> log.info(diary));
 	}
+
+////	@Test
+//	public void testRegister() {
+//		DiaryDTO diaryDTO = DiaryDTO.builder().title("서비스 테스트").writer("tester").dueDate(LocalDate.of(2025, 07, 26))
+//				.build();
+//		Long tno = todoService.register(diaryDTO);
+//		log.info("TNO: " + tno);
+//	}
+//
+////	@Test
+//	public void testGet() {
+//		Long tno = 101L;
+//		DiaryDTO diaryDTO = diaryDTO.builder().tno(tno).build();
+//		DiaryDTO diaryDTO = todoService.get(diaryDTO);
+//		log.info(_diaryDTO);
+//	}
+//
+//	// 넘버 리스트
+////	@Test
+//	public void testNumber() {
+//		List<Integer> listInteger = IntStream.rangeClosed(1, 10).boxed().collect(Collectors.toList());
+//		log.info(listInteger.toString());
+//	}
+//
+//	// 페이징 리스트
+////	@Test
+//	public void testList() {
+//		PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(2).size(10).build();
+//		PageResponseDTO<DiaryDTO> response = todoService.list(pageRequestDTO);
+//		log.info(response);
+//	}
 }

@@ -53,9 +53,11 @@ public class DiaryServiceImpl implements DiaryService {
 	public void modify(DiaryDTO diaryDTO) {
 		Optional<Diary> result = diaryRepository.findById(diaryDTO.getDno());
 		Diary diary = result.orElseThrow();
-		diary.changeTitle(diaryDTO.getTitle());
-		diary.changeDueDate(diaryDTO.getDueDate());
-		diary.changeComplete(diaryDTO.isComplete());
+		diary.changeDtitle(diaryDTO.getDtitle());
+		diary.changeDcontent(diaryDTO.getDcontent());
+		diary.changeDdate(diaryDTO.getDdate());
+		diary.changeDweather(diaryDTO.getDweather());
+		
 		diaryRepository.save(diary);
 	}
 

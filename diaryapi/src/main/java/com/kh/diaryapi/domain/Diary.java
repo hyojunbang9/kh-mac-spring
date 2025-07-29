@@ -20,21 +20,26 @@ public class Diary {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DIARY_SEQ_GEN")
 	// 사용할 전략을 시퀀스로 선택, 식별자 생성기를 설정해 놓은 DIARY_SEQ_GEN으로 설정
-	private Long dno;
-	private String title;
-	private String writer;
-	private boolean complete;
-	private LocalDate dueDate;
+	private Long dno; // DIARY 일기번호 (PK)
+	private String dwriter; // DIARY 글쓴이
+	private String dtitle; // DIARY 제목
+	private String dcontent; // DIARY 내용
+	private LocalDate ddate; // DIARY 날짜
+	private String dweather; // DIARY 날씨
 
-	public void changeTitle(String title) {
-		this.title = title;
+	public void changeDtitle(String dtitle) {
+		this.dtitle = dtitle;
 	}
 
-	public void changeComplete(boolean complete) {
-		this.complete = complete;
+	public void changeDcontent(String dcontent) {
+		this.dcontent = dcontent;
 	}
 
-	public void changeDueDate(LocalDate dueDate) {
-		this.dueDate = dueDate;
+	public void changeDdate(LocalDate ddate) {
+		this.ddate = ddate;
+	}
+
+	public void changeDweather(String dweather) {
+		this.dweather = dweather;
 	}
 }

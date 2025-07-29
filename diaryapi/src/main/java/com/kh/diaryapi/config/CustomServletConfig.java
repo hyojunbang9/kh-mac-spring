@@ -20,6 +20,6 @@ public class CustomServletConfig implements WebMvcConfigurer {
 	registry.addMapping("/**")
 	.allowedOrigins("*")
 	.allowedMethods("HEAD", "GET", "POST", "PUT", "DELETE", "OPTIONS")
-			.maxAge(300).allowedHeaders("Authorization", "Cache-Control", "Content-Type");
+			.maxAge(3003).allowedHeaders("Authorization", "Cache-Control", "Content-Type");
 	}
 }
