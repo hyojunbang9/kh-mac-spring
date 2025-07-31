@@ -19,8 +19,8 @@ public class Moment {
 	private Long mno; // MOMENT 번호
 	private String mtitle; // MOMENT 제목
 	private String mcontent; // MOMENT 내용
-	private LocalDate mdate; // MOMENT 날짜
 	private String mlocation; // MOMENT 위치
+	private LocalDate mdate; // MOMENT 날짜
 
 	@ElementCollection
 	@Builder.Default

@@ -41,7 +41,6 @@ public class MomentController {
 		log.info(uploadFileNames);
 
 		Long mno = momentService.register(momentDTO);
-
 		return Map.of("RESULT", mno);
 	}
 

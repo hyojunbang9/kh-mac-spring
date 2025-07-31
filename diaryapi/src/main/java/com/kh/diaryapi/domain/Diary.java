@@ -21,11 +21,11 @@ public class Diary {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DIARY_SEQ_GEN")
 	// 사용할 전략을 시퀀스로 선택, 식별자 생성기를 설정해 놓은 DIARY_SEQ_GEN으로 설정
 	private Long dno; // DIARY 일기번호 (PK)
-	private String dwriter; // DIARY 글쓴이
 	private String dtitle; // DIARY 제목
+	private String dwriter; // DIARY 글쓴이
 	private String dcontent; // DIARY 내용
-	private LocalDate ddate; // DIARY 날짜
 	private String dweather; // DIARY 날씨
+	private LocalDate ddate; // DIARY 날짜
 
 	public void changeDtitle(String dtitle) {
 		this.dtitle = dtitle;

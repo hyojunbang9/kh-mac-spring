@@ -20,12 +20,11 @@ public class MomentRepositoryTests {
 	@Autowired
 	MomentRepository momentRepository;
 
-//	@Test
+	@Test
 	public void testInsert() {
 		for (int i = 0; i < 10; i++) {
 			Moment moment = Moment.builder().mtitle("제목 " + i).mcontent("기억에 남는 순간 내용 " + i)
-					.mdate(LocalDate.of(2025, 7, 27)) // 혹은 LocalDate.now()
-					.mlocation("서울 강남구 " + i + "번지").build();
+					.mlocation("서울 강남구 " + i + "번지").mdate(LocalDate.of(2025, 7, 27)).build();
 			momentRepository.save(moment);
 			// 2 개의 이미지 파일 추가
 			moment.addImageString(UUID.randomUUID().toString() + "-" + "IMAGE1.jpg");
