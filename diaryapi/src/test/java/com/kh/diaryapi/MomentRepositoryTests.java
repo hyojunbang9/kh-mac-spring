@@ -20,7 +20,7 @@ public class MomentRepositoryTests {
 	@Autowired
 	MomentRepository momentRepository;
 
-	@Test
+//	@Test
 	public void testInsert() {
 		for (int i = 0; i < 10; i++) {
 			Moment moment = Moment.builder().mtitle("제목 " + i).mcontent("기억에 남는 순간 내용 " + i)

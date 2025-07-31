@@ -13,8 +13,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class TodoDTO {
 	private Long tno; // TODO 번호
 	private String ttitle; // TODO 제목
+	private String twriter; // TODO 글쓴이 
 	private String tcontent; // TODO 내용
+	private boolean done; // TODO 완료 여부
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-	private LocalDate tdate; // TODO 날짜
+	private LocalDate dueDate; // TODO 날짜
 }
