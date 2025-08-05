@@ -23,11 +23,11 @@ public class Todo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TODO_SEQ_GEN")
 	private Long tno; // TODO 번호
+	private boolean done; // TODO 완료 여부
 	private String ttitle; // TODO 제목
 	private String twriter; // TODO 글쓴이 
 	private String tcontent; // TODO 내용
 	private LocalDate dueDate; // TODO 마감일
-	private boolean done; // TODO 완료 여부
 
 	public void changeTtitle(String ttitle) {
 		this.ttitle = ttitle;

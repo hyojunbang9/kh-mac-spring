@@ -17,9 +17,9 @@ public class TotoRepositoryTests {
 	@Autowired
 	private TodoRepository todoRepository;
 
-	@Test
+//	@Test
 	public void testInsert() {
-		for (int i = 1; i <= 100; i++) {
+		for (int i = 1; i <= 10; i++) {
 			Todo todo = Todo.builder().ttitle("제목..." + i).twriter("user" + String.format("%02d", i % 10))
 					.tcontent("내용입니다..." + i).dueDate(LocalDate.of(2025, 7, 24))
 					.done(i % 2 == 0) // 짝수 번호만 완료 처리

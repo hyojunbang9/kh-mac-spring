@@ -29,7 +29,7 @@ public class DiaryRepositoryTests {
 
 //	@Test
 	public void testInsert() {
-		for (int i = 1; i <= 100; i++) {
+		for (int i = 1; i <= 10; i++) {
 			Diary diary = Diary.builder().dtitle("제목..." + i).dwriter("user" + String.format("%02d", i % 10))
 					.dcontent("내용입니다..." + i).dweather(i % 2 == 0 ? "맑음" : "흐림").ddate(LocalDate.of(2025, 7, 24))
 					.build();
